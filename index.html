@@ -28,7 +28,7 @@
                 const dummyImportObject = getDummyImportObject();
 
                 const before = performance.now();
-                WebAssembly.instantiate(buffer, dummyImportObject)
+                WebAssembly.compile(buffer, dummyImportObject)
                 .then(module => {
                     const after = performance.now();
 
@@ -36,9 +36,9 @@
                     const initDeltaS = initDeltaMS / 1000;
                     const deltaMS = after - before;
                     const deltaS = deltaMS / 1000;
-                    result.innerHTML += "<br>fetch and WebAssembly.instantiate took " + roundPretty(initDeltaMS) + " ms" + 
+                    result.innerHTML += "<br>fetch and WebAssembly.compile took " + roundPretty(initDeltaMS) + " ms" + 
                                         " (" + roundPretty(sizeMB / initDeltaS) + " MB/s)"
-                    result.innerHTML += "<br>WebAssembly.instantiate took " + roundPretty(deltaMS) + " ms" +
+                    result.innerHTML += "<br>WebAssembly.compile took " + roundPretty(deltaMS) + " ms" +
                                         " (" + roundPretty(sizeMB / deltaS) + " MB/s)";
                     streamingInstantiate();
                     
@@ -61,13 +61,13 @@
 
                 resultStreaming.innerHTML += "<br> Starting...";
                 const response = fetch('tanks.wasm?id=' + getRandomID());
-                WebAssembly.instantiateStreaming(response, dummyImportObject)
+                WebAssembly.compileStreaming(response, dummyImportObject)
                 .then(module => {
                     const after = performance.now();
 
                     const deltaMS = after - init;
                     const deltaS = deltaMS / 1000;
-                    resultStreaming.innerHTML += "<br>fetch and WebAssembly.instantiateStreaming took " + roundPretty(deltaMS) + " ms" +
+                    resultStreaming.innerHTML += "<br>fetch and WebAssembly.compileStreaming took " + roundPretty(deltaMS) + " ms" +
                                         " (" + roundPretty(sizeMB / deltaS) + " MB/s)";
                     
                 })
