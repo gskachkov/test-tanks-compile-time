@@ -34,7 +34,7 @@
                 const dummyImportObject = getDummyImportObject();
                 console.timeStamp('Compile');
                 const before = performance.now();
-                WebAssembly.compile(buffer, dummyImportObject)
+                WebAssembly.instantiate(buffer, dummyImportObject)
                 .then(module => {
                     console.timeStamp('Compiled');
                     const after = performance.now();
@@ -68,8 +68,10 @@
 
                 resultStreaming.innerHTML += "<br> Starting...";
                 console.timeStamp('streamCompile');
+
                 const response = fetch('tanks.wasm?id=' + getRandomID());
-                WebAssembly.compileStreaming(response, dummyImportObject)
+
+                WebAssembly.instantiateStreaming(response, dummyImportObject)
                 .then(module => {
                     console.timeStamp('Stream Compiled');
                     const after = performance.now();
