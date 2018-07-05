@@ -21,7 +21,7 @@
             console.timeStamp('Start fetch');
             
             const init = performance.now();
-            fetch('tanks.wasm?id=' + getRandomID())
+            fetch('tanks.wasm')
             .then(response => { 
                 console.timeStamp('End fetch');
                 return response.arrayBuffer();
@@ -69,7 +69,7 @@
                 resultStreaming.innerHTML += "<br> Starting...";
                 console.timeStamp('streamCompile');
 
-                const response = fetch('tanks.wasm?id=' + getRandomID());
+                const response = fetch('tanks.wasm');
 
                 WebAssembly.instantiateStreaming(response, dummyImportObject)
                 .then(module => {
